@@ -1,25 +1,36 @@
-from django.shortcuts import render, redirect
+from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView, RedirectView
+from django.urls import reverse
+from urllib import request
 from .models import Post
 from .forms import PostForm
 
-# Create your views here.
-# def index(requests):
-#     return render(requests, )
+class IndexRedirectView(RedirectView):
+    pattern_name = 'post-list'
 
-def post_list(request):
-    posts = Post.objects.all()
-    return render(request, 'posts/post_list.html', {"posts" : posts})
+class PostListView(ListView):
+    model = Post
+    ordering = ['dt_created']
+    paginate_by = 6
 
-def post_detail(request, post_id):
-    post = Post.objects.get(id=post_id)
-    return render(request, 'posts/post_detail.html', {"post" : post})
+class PostCreateView(CreateView):
+    model = Post
+    form_class = PostForm
 
-def post_create(request):
-    if request.method == "POST":
-        post_form = PostForm(request.POST)
-        if post_form.is_valid():
-            new_post = post_form.save()
-            return redirect('post-detail', post_id=new_post.id)
-    else:
-        post_form = PostForm()
-    return render(request, 'posts/post_form.html', {"form" : post_form})
+    def get_success_url(self):
+        return reverse('post-detail', kwargs={'pk': self.object.id})
+
+class PageDetailView(DetailView):
+    model = Post
+
+class PostUpdateView(UpdateView):
+    model = Post
+    form_class = PostForm
+
+    def get_success_url(self) :
+        return reverse('post-detail', kwargs={'pk':self.object.id})
+
+class PageDeleteView(DeleteView):
+    model = Post
+
+    def get_success_url(self):
+        return reverse('post-list')
