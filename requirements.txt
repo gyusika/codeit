@@ -18,6 +18,7 @@ GitPython==3.1.27
 idna==3.3
 IP2Location==8.6.4
 oauthlib==3.2.0
+psycopg2-binary==2.9.3
 pycparser==2.21
 PyJWT==2.3.0
 python-dateutil==2.8.2
