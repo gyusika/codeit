@@ -1,0 +1,15 @@
+{% extends './base.html' %}
+
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href={% static 'posts/css/post_list.css' %}> 
+{% endblock css %}
+
+{% block header %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'account_logout' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'account_login' %}">LogIn</a>
+    {% endif %}
+{% endblock header %}

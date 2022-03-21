@@ -1,4 +1,4 @@
-{% extends './base.html' %}
+{% extends 'posts_base/base_with_header.html' %}
 {% load static %}
 
 {% block css %}
@@ -8,23 +8,33 @@
 {% block logo_text %}
     <div idv="header">
         <div class="container">
-            <h1><img src="{% static 'posts/images/headertxt.png'%}"></h1>
+            <h1><img src="{% static 'posts/images/bw_white.png'%}"></h1>
         </div>
     </div>
 {% endblock logo_text %}
 
 {% block content %}
-    <div class="btn_post">
-        <a href="{% url 'post-create' %}">글쓰기</a>
+    <div>
+        <br>
+        <br>
     </div>
     {% if page_obj.object_list %}
         <div class="post_container">
             {% for post in page_obj.object_list  %}
-                <div class="post"><a href="{% url 'post-detail' post.id %}">         
-                    <h2 class="title">{{post.title}}</h2>
-                    <p class="date">{{post.dt_created}}</p>
-                    <p class="text">{{post.content|slice:":100"}}</p>
-                </a></div>
+                {% if user.is_authenticated and user.username == "admin" %}
+                    <div class="post"><a href="{% url 'post-detail' post.id %}">         
+                        <h2 class="title">{{post.title}}</h2>
+                        <p class="date">{{post.dt_created}}</p>
+                        <p class="text">{{post.content|slice:":100"}}</p>
+                    </a></div>
+                {% endif %}
+                {% if post.title == user.username %}
+                    <div class="post"><a href="{% url 'post-detail' post.id %}">         
+                        <h2 class="title">{{post.title}}</h2>
+                        <p class="date">{{post.dt_created}}</p>
+                        <p class="text">{{post.content|slice:":100"}}</p>
+                    </a></div>
+                {% endif %}
             {% endfor %}
         </div>
         <div class="paging">
@@ -42,7 +52,7 @@
         </div>
     {% else %}
         <div class="blank">
-            <p>보여줄 글이 없습니다<br>첫 글을 써주세요</p> 
+            <p>No Data<br>빅웨일즈 관리자에게 문의해주세요</p> 
         </div>
     {% endif %}
 {% endblock content %}

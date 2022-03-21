@@ -1,8 +1,8 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.IndexRedirectView.as_view(), name="index"),
+    path('', views.index, name="index"),
     path('posts/', views.PostListView.as_view(), name="post-list"),
     path('posts/new', views.PostCreateView.as_view(), name="post-create"),
     path('posts/<int:pk>/', views.PageDetailView.as_view(), name="post-detail"),

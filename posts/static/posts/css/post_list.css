@@ -6,7 +6,7 @@ h1,h2,h3,p,a,ul,li{
     list-style:  none;
     text-decoration: none; 
     outline: none;
-    color: black;
+    color: white;
 }
 a:hover,a:active {
     text-decoration: none;
@@ -29,7 +29,6 @@ img {
     padding: 0;
     border: 0;
 }
-
 #nav{
     height: 60px;
 }
@@ -59,7 +58,12 @@ img {
     padding-top: 17px;
 }
 .logo img{
-    width: 88px;
+    width: 120px;
+}
+.logo span{
+    float: right;
+    margin-right: 20px;
+    color:white;
 }
 h1{
     text-align: center;

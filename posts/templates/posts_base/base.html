@@ -14,14 +14,16 @@
         <div id="header">
             <div id="nav">
                 <div class="logo">
-                    <a href="{% url 'post-list' %}"><img src="{% static 'posts/images/logo.png' %}"></a>
+                    <a href="{% url 'post-list' %}"><img src="{% static 'posts/images/bw_white.png' %}"></a>
+                    <span>
+                        {% block header %}
+                        {% endblock header %}
+                    </span>
                 </div>
             </div>
             {% block post_header %}
             {% endblock post_header %}
         </div>
-        {% block logo_text %}
-        {% endblock logo_text %}
         <div id="content">
             <div class="container">
                 {% block content %}
